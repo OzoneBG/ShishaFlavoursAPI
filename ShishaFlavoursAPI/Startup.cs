@@ -9,10 +9,14 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using ShishaFlavoursAPI.Common.Data.Repository;
     using ShishaFlavoursAPI.Common.Infrastructure.Extensions;
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Models;
     using System.Text;
+    using AutoMapper;
+    using ShishaFlavoursAPI.Common.Infrastructure.Mapping;
+    using ShishaFlavoursAPI.Services;
 
     public class Startup
     {
@@ -56,6 +60,14 @@
                     };
                 });
 
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddTransient<DbContext, ShishaFlavoursDbContext>();
+
+            services.AddTransient<IFlavoursService, FlavoursService>();
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -66,6 +78,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
 
             app.UseAuthentication();

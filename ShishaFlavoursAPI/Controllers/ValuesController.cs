@@ -4,15 +4,19 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using ShishaFlavoursAPI.Models;
+    using ShishaFlavoursAPI.Services;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class ValuesController : ControllerBase
     {
         private UserManager<User> userManager;
+        private IFlavoursService flavoursService;
 
-        public ValuesController(UserManager<User> userManager)
+        public ValuesController(UserManager<User> userManager, IFlavoursService flavoursService)
         {
             this.userManager = userManager;
+            this.flavoursService = flavoursService;
         }
 
         [Authorize]
@@ -38,9 +42,14 @@
 
         // GET api/values
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return new JsonResult(new string[] { "value1", "value2" });
+            var flavours = await flavoursService.GetAllFlavours() as List<Flavour>;
+            if(flavours.Count == 0)
+            {
+                return NotFound("No flavours found");
+            }
+            return new JsonResult(flavours);
         }
 
         //// GET api/values/5
