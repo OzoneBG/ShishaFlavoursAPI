@@ -15,36 +15,13 @@
             this.userManager = userManager;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CreateUser()
-        {
-            User user = new User
-            {
-                UserName = "Young",
-                Email = "muzunov@hotmail.com"
-            };
-
-            PasswordHasher<User> hasher = new PasswordHasher<User>();
-
-            IdentityResult result = await userManager.CreateAsync(user, "1q2w3e$R");
-
-            if (result.Succeeded)
-            {
-                return new JsonResult("Created user");
-            }
-            else
-            {
-                return new JsonResult(result.Errors);
-            }
-        }
-
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetUser()
+        public async Task<IActionResult> GetUser(string name)
         {
             if (User.Identity.IsAuthenticated)
             {
-                User userInDB = await userManager.FindByNameAsync("Young");
+                User userInDB = await userManager.FindByNameAsync(name);
 
                 if (userInDB == null)
                 {

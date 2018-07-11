@@ -28,7 +28,14 @@
             services.AddDbContext<ShishaFlavoursDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentityCore<User>(options => { });
+            services.AddIdentityCore<User>(options => {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 8;
+            });
+
             new IdentityBuilder(typeof(User), typeof(IdentityRole), services)
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddSignInManager<SignInManager<User>>()
