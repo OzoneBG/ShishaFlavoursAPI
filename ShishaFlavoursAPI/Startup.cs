@@ -9,6 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using ShishaFlavoursAPI.Common.Data.Repository;
     using ShishaFlavoursAPI.Common.Infrastructure.Extensions;
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Models;
@@ -56,6 +57,10 @@
                     };
                 });
 
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddTransient<DbContext, ShishaFlavoursDbContext>();
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -66,6 +71,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
 
             app.UseAuthentication();
