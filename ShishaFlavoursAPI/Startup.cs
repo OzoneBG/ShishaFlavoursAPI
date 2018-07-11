@@ -14,6 +14,8 @@
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Models;
     using System.Text;
+    using AutoMapper;
+    using ShishaFlavoursAPI.Common.Infrastructure.Mapping;
 
     public class Startup
     {
@@ -56,6 +58,8 @@
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
+
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
