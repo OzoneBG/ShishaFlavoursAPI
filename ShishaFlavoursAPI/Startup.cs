@@ -16,6 +16,7 @@
     using System.Text;
     using AutoMapper;
     using ShishaFlavoursAPI.Common.Infrastructure.Mapping;
+    using ShishaFlavoursAPI.Services;
 
     public class Startup
     {
@@ -64,6 +65,8 @@
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddTransient<DbContext, ShishaFlavoursDbContext>();
+
+            services.AddTransient<IFlavoursService, FlavoursService>();
 
             services
                 .AddMvc()

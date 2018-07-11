@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -17,7 +18,7 @@
 
         protected DbContext Context { get; set; }
 
-        public virtual void Add(T entity)
+        public virtual async Task Add(T entity)
         {
             EntityEntry entry = this.Context.Entry(entity);
 
@@ -27,7 +28,7 @@
             }
             else
             {
-                this.DbSet.Add(entity);
+                await this.DbSet.AddAsync(entity);
             }
         }
 
@@ -50,9 +51,9 @@
             }
         }
 
-        public virtual void Delete(int id)
+        public virtual async Task Delete(int id)
         {
-            var entity = this.GetById(id);
+            var entity = await this.GetById(id);
 
             if (entity != null)
             {
@@ -72,9 +73,9 @@
             this.Context.Dispose();
         }
 
-        public virtual T GetById(int id)
+        public virtual async Task<T> GetById(int id)
         {
-            return this.DbSet.Find(Context, id);
+            return await this.DbSet.FindAsync(Context, id);
         }
 
         public virtual int SaveChanges()

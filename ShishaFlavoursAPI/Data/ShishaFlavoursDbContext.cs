@@ -23,8 +23,8 @@
 
         }
 
-        DbSet<Flavour> Flavours { get; set; }
+        public DbSet<Flavour> Flavours { get; set; }
 
-        DbSet<FlavourCombination> FlavourCombinations { get; set; }
+        public DbSet<FlavourCombination> FlavourCombinations { get; set; }
     }
 }
