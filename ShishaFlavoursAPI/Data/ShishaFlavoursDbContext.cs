@@ -22,5 +22,9 @@
             optionsBuilder.UseSqlServer(sqlServerOptions.ConnectionString);
 
         }
+
+        DbSet<Flavour> Flavours { get; set; }
+
+        DbSet<FlavourCombination> FlavourCombinations { get; set; }
     }
 }

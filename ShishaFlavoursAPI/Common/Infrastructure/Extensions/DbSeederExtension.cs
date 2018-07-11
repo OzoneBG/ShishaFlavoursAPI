@@ -1,4 +1,4 @@
-﻿namespace ShishaFlavoursAPI.Common.Extensions
+﻿namespace ShishaFlavoursAPI.Common.Infrastructure.Extensions
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;

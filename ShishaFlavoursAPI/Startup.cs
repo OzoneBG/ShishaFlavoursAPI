@@ -9,7 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
-    using ShishaFlavoursAPI.Common.Extensions;
+    using ShishaFlavoursAPI.Common.Infrastructure.Extensions;
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Models;
     using System.Text;

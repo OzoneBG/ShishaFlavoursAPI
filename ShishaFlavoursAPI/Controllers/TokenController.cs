@@ -11,6 +11,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
     using ShishaFlavoursAPI.Models;
+    using ShishaFlavoursAPI.RequestModels;
 
     public class TokenController : Controller
     {
