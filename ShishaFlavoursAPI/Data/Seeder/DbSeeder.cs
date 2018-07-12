@@ -4,7 +4,6 @@
     using Microsoft.Extensions.Logging;
     using ShishaFlavoursAPI.Models;
     using ShishaFlavoursAPI.Services;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -40,8 +39,6 @@
                 {
                     flavoursService.CreateFlavour(flavour.Name);
                 }
-
-                //flavoursService.AddRangeOfFlavours(flavours);
 
                 logger.LogInformation("Created 10 default shisha flavours");
             }
