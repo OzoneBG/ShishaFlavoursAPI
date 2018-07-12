@@ -8,8 +8,8 @@
     {
         Task CreateFlavour(string name);
 
-        void AddRangeOfFlavours(List<Flavour> flavours);
-
         Task<Flavour> GetFlavourByName(string name);
+
+        Task<ICollection<Flavour>> GetAllFlavours();
     }
 }
