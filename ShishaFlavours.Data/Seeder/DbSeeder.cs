@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services;
+    using ShishaFlavoursAPI.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
 

@@ -7,7 +7,7 @@
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Data.Seeder;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services;
+    using ShishaFlavoursAPI.Services.Interfaces;
 
     public static class DbSeederExtension
     {

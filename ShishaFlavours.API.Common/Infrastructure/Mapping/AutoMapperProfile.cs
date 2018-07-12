@@ -13,7 +13,7 @@
             var allTypes = AppDomain
                 .CurrentDomain
                 .GetAssemblies()
-                .Where(a => a.GetName().Name.Contains("ShishaFlavoursAPI"))
+                .Where(a => a.GetName().Name.Contains("ShishaFlavours.API.Common"))
                 .SelectMany(a => a.GetTypes());
 
             ConfigureMappings(allTypes);

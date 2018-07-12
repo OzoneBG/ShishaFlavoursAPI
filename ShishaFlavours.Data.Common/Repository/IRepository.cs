@@ -1,4 +1,4 @@
-﻿namespace ShishaFlavoursAPI.Common.Data.Repository
+﻿namespace ShishaFlavoursAPI.Data.Common.Repository
 {
     using System;
     using System.Linq;
