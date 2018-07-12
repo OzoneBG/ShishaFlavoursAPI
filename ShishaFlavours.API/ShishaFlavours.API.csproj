@@ -6,16 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ResponseModels\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="ResponseModels\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="ResponseModels\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="ResponseModels\**" />
     <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Infrastructure\Extensions\" />
-    <Folder Include="Data\" />
-    <Folder Include="ResponseModels\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +21,14 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShishaFlavours.API.Common\ShishaFlavours.API.Common.csproj" />
+    <ProjectReference Include="..\ShishaFlavours.Data.Common\ShishaFlavours.Data.Common.csproj" />
+    <ProjectReference Include="..\ShishaFlavours.Data\ShishaFlavours.Data.csproj" />
+    <ProjectReference Include="..\ShishaFlavours.Models\ShishaFlavours.Models.csproj" />
+    <ProjectReference Include="..\ShishaFlavours.Services\ShishaFlavours.Services.csproj" />
   </ItemGroup>
 
 </Project>

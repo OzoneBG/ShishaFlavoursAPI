@@ -9,7 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
-    using ShishaFlavoursAPI.Common.Data.Repository;
+    using ShishaFlavoursAPI.Data.Common.Repository;
     using ShishaFlavoursAPI.Common.Infrastructure.Extensions;
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Models;
@@ -17,6 +17,7 @@
     using AutoMapper;
     using ShishaFlavoursAPI.Common.Infrastructure.Mapping;
     using ShishaFlavoursAPI.Services;
+    using ShishaFlavoursAPI.Services.Interfaces;
 
     public class Startup
     {

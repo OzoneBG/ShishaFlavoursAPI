@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services;
+    using ShishaFlavoursAPI.Services.Interfaces;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
