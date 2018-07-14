@@ -35,10 +35,7 @@
                     new Flavour() { Name = "Grapes" }
                 };
 
-                foreach(var flavour in flavours)
-                {
-                    flavoursService.CreateFlavour(flavour.Name);
-                }
+                flavoursService.AddFlavoursBulkAsync(flavours.ToArray()).Wait();
 
                 logger.LogInformation("Created 10 default shisha flavours");
             }

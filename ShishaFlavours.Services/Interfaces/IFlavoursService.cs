@@ -11,5 +11,7 @@
         Task<Flavour> GetFlavourByName(string name);
 
         Task<ICollection<Flavour>> GetAllFlavours();
+
+        Task AddFlavoursBulkAsync(Flavour[] flavours);
     }
 }

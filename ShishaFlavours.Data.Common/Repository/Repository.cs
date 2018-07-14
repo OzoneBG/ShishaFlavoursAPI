@@ -18,7 +18,7 @@
 
         protected DbContext Context { get; set; }
 
-        public virtual async Task Add(T entity)
+        public virtual void Add(T entity)
         {
             EntityEntry entry = this.Context.Entry(entity);
 
@@ -28,7 +28,7 @@
             }
             else
             {
-                await this.DbSet.AddAsync(entity);
+                this.DbSet.Add(entity);
             }
         }
 
@@ -78,9 +78,9 @@
             return await this.DbSet.FindAsync(Context, id);
         }
 
-        public virtual int SaveChanges()
+        public virtual async Task<int> SaveChanges()
         {
-            return this.Context.SaveChanges();
+            return await this.Context.SaveChangesAsync();
         }
 
         public virtual void Update(T entity)

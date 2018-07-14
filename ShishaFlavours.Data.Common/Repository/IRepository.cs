@@ -10,7 +10,7 @@
 
         Task<T> GetById(int id);
 
-        Task Add(T entity);
+        void Add(T entity);
 
         void Update(T entity);
 
@@ -20,6 +20,6 @@
 
         void Detach(T entity);
 
-        int SaveChanges();
+        Task<int> SaveChanges();
     }
 }

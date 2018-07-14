@@ -21,8 +21,8 @@
         {
             Flavour newFlavour = new Flavour() { Name = name };
 
-            await flavoursRepository.Add(newFlavour);
-            flavoursRepository.SaveChanges();
+            flavoursRepository.Add(newFlavour);
+            await flavoursRepository.SaveChanges();
         }
 
         public async Task<Flavour> GetFlavourByName(string name)
@@ -39,6 +39,16 @@
             ICollection<Flavour> allFlavours = await flavoursRepository.All().ToListAsync();
 
             return allFlavours;
+        }
+
+        public async Task AddFlavoursBulkAsync(Flavour[] flavours)
+        {
+            foreach(Flavour flavour in flavours)
+            {
+                flavoursRepository.Add(flavour);
+            }
+
+            await flavoursRepository.SaveChanges();
         }
     }
 }
