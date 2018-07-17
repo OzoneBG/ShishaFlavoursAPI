@@ -2,24 +2,27 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
+    using ShishaFlavours.Models.Relationships;
+    using ShishaFlavours.Services.Interfaces;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     public static class DbSeeder
     {
-        public static void Seed(ShishaFlavoursDbContext context, UserManager<User> userManager, IFlavoursService flavoursService, ILogger logger)
+        public static void Seed(ShishaFlavoursDbContext context, UserManager<User> userManager, IFlavoursService flavoursService, IFlavourCombinationsService flavourCombinationsService, ILogger logger)
         {
             context.Database.EnsureCreated();
 
             CreateAdminUser(context, userManager, logger);
             CreateFlavours(context, flavoursService, logger);
+            CreateFlavourCombinations(context, flavourCombinationsService, flavoursService, userManager, logger);
         }
 
         private static void CreateFlavours(ShishaFlavoursDbContext context, IFlavoursService flavoursService, ILogger logger)
         {
-            if(!context.Flavours.Any())
+            if (!context.Flavours.Any())
             {
                 List<Flavour> flavours = new List<Flavour>()
                 {
@@ -71,6 +74,35 @@
             else
             {
                 logger.LogInformation("Admin user already exists");
+            }
+        }
+
+        private static void CreateFlavourCombinations(ShishaFlavoursDbContext context, IFlavourCombinationsService flavourCombinationsService, IFlavoursService flavoursService, UserManager<User> userManager, ILogger logger)
+        {
+            if (!context.FlavourCombinations.Any())
+            {
+                string adminUserId = userManager.FindByNameAsync("Admin").Result.Id;
+
+                FlavourCombination combination = new FlavourCombination()
+                {
+                    Name = "Sweet Mint",
+                    Description = "A great combination of the most popular shisha flavours ever!",
+                    DateAdded = DateTime.Now,
+                    UserId = adminUserId,
+                    FlavourCombinationReferences = new List<FlavourCombinationReference>()
+                };
+
+                List<Flavour> flavours = new List<Flavour>()
+                {
+                    flavoursService.GetFlavourByName("Blueberry").Result,
+                    flavoursService.GetFlavourByName("Mint").Result
+                };
+
+                flavourCombinationsService.CreateFlavourCombinationAsync(combination, flavours).Wait();
+            }
+            else
+            {
+                logger.LogInformation("Flavour combinations were already added");
             }
         }
     }

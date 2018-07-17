@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShishaFlavoursAPI.Data;
 
 namespace ShishaFlavours.Data.Migrations
 {
     [DbContext(typeof(ShishaFlavoursDbContext))]
-    partial class ShishaFlavoursDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180714154913_FixedRelationsip")]
+    partial class FixedRelationsip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,12 +174,13 @@ namespace ShishaFlavours.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
+
+                    b.Property<string>("UserId1");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("FlavourCombinations");
                 });
@@ -295,8 +298,7 @@ namespace ShishaFlavours.Data.Migrations
                 {
                     b.HasOne("ShishaFlavoursAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

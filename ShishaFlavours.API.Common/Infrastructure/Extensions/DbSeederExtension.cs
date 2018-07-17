@@ -7,7 +7,7 @@
     using ShishaFlavoursAPI.Data;
     using ShishaFlavoursAPI.Data.Seeder;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services.Interfaces;
+    using ShishaFlavours.Services.Interfaces;
 
     public static class DbSeederExtension
     {
@@ -20,9 +20,10 @@
                 var context = services.GetRequiredService<ShishaFlavoursDbContext>();
                 var userManager = services.GetRequiredService<UserManager<User>>();
                 var flavoursService = services.GetRequiredService<IFlavoursService>();
+                var flavourCombinationsService = services.GetRequiredService<IFlavourCombinationsService>();
                 var logger = services.GetRequiredService<ILogger<IApplicationBuilder>>();
 
-                DbSeeder.Seed(context, userManager, flavoursService, logger);
+                DbSeeder.Seed(context, userManager, flavoursService, flavourCombinationsService, logger);
             }
 
             return app;

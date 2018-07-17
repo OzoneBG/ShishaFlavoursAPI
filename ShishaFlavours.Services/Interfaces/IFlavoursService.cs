@@ -1,4 +1,4 @@
-﻿namespace ShishaFlavoursAPI.Services.Interfaces
+﻿namespace ShishaFlavours.Services.Interfaces
 {
     using ShishaFlavoursAPI.Models;
     using System.Collections.Generic;

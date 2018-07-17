@@ -1,9 +1,9 @@
-﻿namespace ShishaFlavoursAPI.Services
+﻿namespace ShishaFlavours.Services
 {
     using Microsoft.EntityFrameworkCore;
+    using ShishaFlavours.Services.Interfaces;
     using ShishaFlavoursAPI.Data.Common.Repository;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;

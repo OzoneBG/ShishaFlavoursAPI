@@ -16,8 +16,9 @@
     using System.Text;
     using AutoMapper;
     using ShishaFlavoursAPI.Common.Infrastructure.Mapping;
-    using ShishaFlavoursAPI.Services;
-    using ShishaFlavoursAPI.Services.Interfaces;
+    using ShishaFlavours.Services.Interfaces;
+    using ShishaFlavours.Services;
+    using Newtonsoft.Json;
 
     public class Startup
     {
@@ -68,9 +69,14 @@
             services.AddTransient<DbContext, ShishaFlavoursDbContext>();
 
             services.AddTransient<IFlavoursService, FlavoursService>();
+            services.AddTransient<IFlavourCombinationsService, FlavourCombinationService>();
 
             services
                 .AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

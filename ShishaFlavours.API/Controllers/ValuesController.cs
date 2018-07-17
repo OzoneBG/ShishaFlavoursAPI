@@ -3,8 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using ShishaFlavours.Services.Interfaces;
     using ShishaFlavoursAPI.Models;
-    using ShishaFlavoursAPI.Services.Interfaces;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -12,11 +13,13 @@
     {
         private UserManager<User> userManager;
         private IFlavoursService flavoursService;
+        private IFlavourCombinationsService flavourCombinationsService;
 
-        public ValuesController(UserManager<User> userManager, IFlavoursService flavoursService)
+        public ValuesController(UserManager<User> userManager, IFlavoursService flavoursService, IFlavourCombinationsService flavourCombinationsService)
         {
             this.userManager = userManager;
             this.flavoursService = flavoursService;
+            this.flavourCombinationsService = flavourCombinationsService;
         }
 
         [Authorize]
@@ -44,12 +47,12 @@
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var flavours = await flavoursService.GetAllFlavours() as List<Flavour>;
-            if(flavours.Count == 0)
+            var flavourCombination = await flavourCombinationsService.GetFlavourCombinationByName("Sweet Mint");
+            if(flavourCombination == null)
             {
                 return NotFound("No flavours found");
             }
-            return new JsonResult(flavours);
+            return new JsonResult(flavourCombination);
         }
 
         //// GET api/values/5

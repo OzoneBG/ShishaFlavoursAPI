@@ -1,5 +1,6 @@
 ﻿namespace ShishaFlavoursAPI.Models
 {
+    using ShishaFlavours.Models.Relationships;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -17,8 +18,7 @@
         [StringLength(100, MinimumLength = 10, ErrorMessage = "The length of the description must be between 10 and 100")]
         public string Description { get; set; }
 
-        [Required]
-        public ICollection<Flavour> Flavours { get; set; }
+        public List<FlavourCombinationReference> FlavourCombinationReferences { get; set; }
 
         [Required]
         public DateTime DateAdded { get; set; }
@@ -26,6 +26,6 @@
         public User User { get; set; }
 
         [Required]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
     }
 }
