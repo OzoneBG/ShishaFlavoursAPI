@@ -1,4 +1,4 @@
-﻿namespace ShishaFlavoursAPI.RequestModels
+﻿namespace ShishaFlavours.API.RequestModels.User
 {
     public class LoginModel
     {
