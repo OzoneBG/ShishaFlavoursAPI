@@ -9,11 +9,11 @@
     using System.Linq;
     using ShishaFlavours.Services.ResponseModels;
 
-    public class FlavourController : Controller
+    public class FlavoursController : Controller
     {
         private readonly IFlavoursService flavoursService = null;
 
-        public FlavourController(IFlavoursService flavoursService)
+        public FlavoursController(IFlavoursService flavoursService)
         {
             this.flavoursService = flavoursService;
         }

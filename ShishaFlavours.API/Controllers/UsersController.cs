@@ -14,13 +14,13 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private IConfiguration config = null;
         private UserManager<User> userManager = null;
         private SignInManager<User> signInManager = null;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        public UsersController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

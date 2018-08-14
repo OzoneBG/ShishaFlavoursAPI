@@ -4,6 +4,7 @@
     using ShishaFlavours.API.ResultModel;
     using ShishaFlavours.Models.Relationships;
     using ShishaFlavours.Services.Interfaces;
+    using ShishaFlavours.Services.ResponseModels;
     using ShishaFlavoursAPI.Data.Common.Repository;
     using ShishaFlavoursAPI.Models;
     using System.Collections.Generic;
@@ -19,7 +20,7 @@
             this.flavourCombinationRepository = flavourCombinationRepository;
         }
 
-        public async Task CreateFlavourCombinationAsync(FlavourCombination flavourCombination, List<Flavour> flavours)
+        public async Task<ResultStatus> CreateFlavourCombinationAsync(FlavourCombination flavourCombination, List<Flavour> flavours)
         {
             this.flavourCombinationRepository.Add(flavourCombination);
 
@@ -34,7 +35,25 @@
                 flavourCombination.FlavourCombinationReferences.Add(reference);
             }
 
-            await flavourCombinationRepository.SaveChanges();
+            int code = await flavourCombinationRepository.SaveChanges();
+
+            bool status = code != 0;
+
+            ResultStatus resultStatus = new ResultStatus()
+            {
+                Status = status
+            };
+
+            if(status)
+            {
+                resultStatus.Message = "Successfully created a new combination";
+            }
+            else
+            {
+                resultStatus.Message = "Failed to create a new combination";
+            }
+
+            return resultStatus;
         }
 
         public async Task<FlavourCombinationResultModel> GetFlavourCombinationByName(string name)
