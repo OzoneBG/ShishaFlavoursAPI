@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using ShishaFlavours.Services.Interfaces;
+    using ShishaFlavours.Services.ResponseModels;
     using ShishaFlavoursAPI.Data.Common.Repository;
     using ShishaFlavoursAPI.Models;
     using System.Collections.Generic;
@@ -15,14 +16,6 @@
         public FlavoursService(IRepository<Flavour> flavoursRepository)
         {
             this.flavoursRepository = flavoursRepository;
-        }
-
-        public async Task CreateFlavour(string name)
-        {
-            Flavour newFlavour = new Flavour() { Name = name };
-
-            flavoursRepository.Add(newFlavour);
-            await flavoursRepository.SaveChanges();
         }
 
         public async Task<Flavour> GetFlavourByName(string name)
@@ -49,6 +42,83 @@
             }
 
             await flavoursRepository.SaveChanges();
+        }
+
+        public async Task<ResultStatus> CreateFlavour(string name)
+        {
+            Flavour newFlavour = new Flavour() { Name = name };
+
+            flavoursRepository.Add(newFlavour);
+            int code = await flavoursRepository.SaveChanges();
+
+            bool status = (code != 0);
+
+            ResultStatus resultStatus = new ResultStatus
+            {
+                Status = status
+            };
+
+            if(status)
+            {
+                resultStatus.Message = "Successfully created new flavour";
+            }
+            else
+            {
+                resultStatus.Message = "Failed to create new flavour";
+            }
+
+            return resultStatus;
+        }
+
+        public async Task<ResultStatus> DeleteFlavourByName(string name)
+        {
+            Flavour target = await GetFlavourByName(name);
+            flavoursRepository.Delete(target);
+            int code = await flavoursRepository.SaveChanges();
+
+            bool status = (code != 0);
+
+            ResultStatus resultStatus = new ResultStatus
+            {
+                Status = status
+            };
+        
+            if (status)
+            {
+                resultStatus.Message = "Successfully deleted flavour";
+            }
+            else
+            {
+                resultStatus.Message = "Failed to deleted flavour";
+            }
+
+            return resultStatus;
+        }
+
+        public async Task<ResultStatus> UpdateFlavourByName(string name, string newName)
+        {
+            Flavour target = await GetFlavourByName(name);
+            target.Name = newName;
+            flavoursRepository.Update(target);
+            int code = await flavoursRepository.SaveChanges();
+
+            bool status = (code != 0);
+
+            ResultStatus resultStatus = new ResultStatus
+            {
+                Status = status
+            };
+
+            if (status)
+            {
+                resultStatus.Message = "Successfully updated flavour";
+            }
+            else
+            {
+                resultStatus.Message = "Failed to update flavour";
+            }
+
+            return resultStatus;
         }
     }
 }

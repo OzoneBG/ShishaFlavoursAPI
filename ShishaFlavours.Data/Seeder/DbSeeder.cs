@@ -24,21 +24,7 @@
         {
             if (!context.Flavours.Any())
             {
-                List<Flavour> flavours = new List<Flavour>()
-                {
-                    new Flavour() { Name = "Double Apple" },
-                    new Flavour() { Name = "Blueberry" },
-                    new Flavour() { Name = "Pomegranate" },
-                    new Flavour() { Name = "Watermelon" },
-                    new Flavour() { Name = "Melon" },
-                    new Flavour() { Name = "Mint" },
-                    new Flavour() { Name = "Lemon" },
-                    new Flavour() { Name = "Orange" },
-                    new Flavour() { Name = "Grapefruit" },
-                    new Flavour() { Name = "Grapes" }
-                };
-
-                flavoursService.AddFlavoursBulkAsync(flavours.ToArray()).Wait();
+                flavoursService.AddFlavoursBulkAsync(GenerateFlavours().ToArray()).Wait();
 
                 logger.LogInformation("Created 10 default shisha flavours");
             }
@@ -104,6 +90,25 @@
             {
                 logger.LogInformation("Flavour combinations were already added");
             }
+        }
+
+        private static List<Flavour> GenerateFlavours()
+        {
+            List<Flavour> flavours = new List<Flavour>()
+            {
+                new Flavour() { Name = "Double Apple" },
+                new Flavour() { Name = "Blueberry" },
+                new Flavour() { Name = "Pomegranate" },
+                new Flavour() { Name = "Watermelon" },
+                new Flavour() { Name = "Melon" },
+                new Flavour() { Name = "Mint" },
+                new Flavour() { Name = "Lemon" },
+                new Flavour() { Name = "Orange" },
+                new Flavour() { Name = "Grapefruit" },
+                new Flavour() { Name = "Grapes" }
+            };
+
+            return flavours;
         }
     }
 }

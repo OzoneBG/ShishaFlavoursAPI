@@ -9,4 +9,8 @@
     <ProjectReference Include="..\ShishaFlavours.Models\ShishaFlavours.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ResultModels\Flavour\" />
+  </ItemGroup>
+
 </Project>
