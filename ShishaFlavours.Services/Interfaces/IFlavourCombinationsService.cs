@@ -10,6 +10,12 @@
     {
         Task<ResultStatus> CreateFlavourCombinationAsync(FlavourCombination flavourCombination, List<Flavour> flavours);
 
-        Task<FlavourCombinationResultModel> GetFlavourCombinationByName(string name);
+        Task<FlavourCombination> GetFlavourCombinationByName(string name);
+
+        Task<ICollection<FlavourCombination>> GetAllCombinations();
+
+        Task<ResultStatus> DeleteFlavourCombination(string name);
+
+        Task<ResultStatus> UpdateFlavourCombination(string name, string newName);
     }
 }

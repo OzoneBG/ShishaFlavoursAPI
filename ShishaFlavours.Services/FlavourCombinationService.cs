@@ -56,16 +56,65 @@
             return resultStatus;
         }
 
-        public async Task<FlavourCombinationResultModel> GetFlavourCombinationByName(string name)
+        public async Task<ResultStatus> DeleteFlavourCombination(string name)
         {
-            return await flavourCombinationRepository
-                .All()
-                .Select(t => new FlavourCombinationResultModel()
-                {
-                    Name = t.Name,
-                    UserName = t.User.UserName,
-                    flavours = t.FlavourCombinationReferences.Select(x => x.Flavour.Name).ToList()
-                }).FirstOrDefaultAsync();
+            FlavourCombination target = await GetFlavourCombinationByName(name);
+            flavourCombinationRepository.Delete(target);
+            int code = await flavourCombinationRepository.SaveChanges();
+
+            bool status = (code != 0);
+
+            ResultStatus resultStatus = new ResultStatus
+            {
+                Status = status
+            };
+
+            if (status)
+            {
+                resultStatus.Message = "Successfully deleted flavour";
+            }
+            else
+            {
+                resultStatus.Message = "Failed to deleted flavour";
+            }
+
+            return resultStatus;
+        }
+
+        public async Task<ICollection<FlavourCombination>> GetAllCombinations()
+        {
+            return await flavourCombinationRepository.All().ToListAsync();
+        }
+
+        public async Task<FlavourCombination> GetFlavourCombinationByName(string name)
+        {
+            return await flavourCombinationRepository.All().Where(x => x.Name == name).FirstOrDefaultAsync();
+        }
+
+        public async Task<ResultStatus> UpdateFlavourCombination(string name, string newName)
+        {
+            FlavourCombination target = await GetFlavourCombinationByName(name);
+            target.Name = newName;
+            flavourCombinationRepository.Update(target);
+            int code = await flavourCombinationRepository.SaveChanges();
+
+            bool status = (code != 0);
+
+            ResultStatus resultStatus = new ResultStatus
+            {
+                Status = status
+            };
+
+            if (status)
+            {
+                resultStatus.Message = "Successfully updated flavour combination";
+            }
+            else
+            {
+                resultStatus.Message = "Failed to update flavour combination";
+            }
+
+            return resultStatus;
         }
     }
 }
