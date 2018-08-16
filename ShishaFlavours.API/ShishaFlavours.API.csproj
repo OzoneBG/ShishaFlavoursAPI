@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="RequestModels\Flavour\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="RequestModels\Flavour\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="RequestModels\Flavour\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="RequestModels\Flavour\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 
@@ -25,10 +29,6 @@
     <ProjectReference Include="..\ShishaFlavours.Data\ShishaFlavours.Data.csproj" />
     <ProjectReference Include="..\ShishaFlavours.Models\ShishaFlavours.Models.csproj" />
     <ProjectReference Include="..\ShishaFlavours.Services\ShishaFlavours.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="RequestModels\Flavour\" />
   </ItemGroup>
 
 </Project>
