@@ -7,6 +7,7 @@
     using Microsoft.IdentityModel.Tokens;
     using ShishaFlavours.API.Common.Infrastructure.Extensions;
     using ShishaFlavours.API.RequestModels.User;
+    using ShishaFlavours.Services.ResponseModels;
     using ShishaFlavoursAPI.Models;
     using System;
     using System.IdentityModel.Tokens.Jwt;
@@ -35,23 +36,49 @@
 
             if(ModelState.IsValid)
             {
-                User user = new User
+                if(userData.IsConsent)
                 {
-                    UserName = userData.Username,
-                    Email = userData.Email
-                };
+                    User user = new User
+                    {
+                        UserName = userData.Username,
+                        Email = userData.Email
+                    };
 
-                IdentityResult userResult = await userManager.CreateAsync(user, userData.Password);
-                if(userResult.Succeeded)
+                    IdentityResult userResult = await userManager.CreateAsync(user, userData.Password);
+                    if (userResult.Succeeded)
+                    {
+                        ResultStatus status = new ResultStatus()
+                        {
+                            Status = true,
+                            Message = "The user was successfully created."
+                        };
+                        result = new JsonResult(status);
+                    }
+                    else
+                    {
+                        result = new JsonResult(new { ErrorMessage = "The user failed to create. Please check errors.", userResult.Errors });
+                    }
+                } 
+                else
                 {
-                    result = new JsonResult("The user was successfully created.");
-                } else
-                {
-                    result = new JsonResult(new {  ErrorMessage = "The user failed to create. Please check errors.", userResult.Errors });
+                    ResultStatus status = new ResultStatus()
+                    {
+                        Status = false,
+                        Message = "The user is not consent."
+                    };
+
+                    result = new JsonResult(status);
                 }
+                
             } else
             {
-                result = new JsonResult("The input data was invalid");
+                ResultStatus status = new ResultStatus()
+                {
+                    Status = false,
+                    Message = "The input data was invalid"
+                };
+
+                result = new JsonResult(status);
             }
 
             return result;
@@ -83,6 +110,42 @@
             }
 
             return response;
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string userId)
+        {
+            if(string.IsNullOrEmpty(userId))
+            {
+                ResultStatus status = new ResultStatus()
+                {
+                    Status = false,
+                    Message = "Id is null or empty"
+                };
+
+                return new JsonResult(status);
+            }
+            else
+            {
+                User user = await userManager.FindByIdAsync(userId);
+                IdentityResult result = await userManager.DeleteAsync(user);
+
+                if(result.Succeeded)
+                {
+                    ResultStatus status = new ResultStatus()
+                    {
+                        Status = true,
+                        Message = "User successfully deleted"
+                    };
+
+                    return new JsonResult(status);
+                }
+                else
+                {
+                    return new JsonResult(result.Errors);
+                }
+            }
         }
 
         [AllowAnonymous]

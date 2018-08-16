@@ -12,5 +12,8 @@
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public bool IsConsent { get; set; }
     }
 }
