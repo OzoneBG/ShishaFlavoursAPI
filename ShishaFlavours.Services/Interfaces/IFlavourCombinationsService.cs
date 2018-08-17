@@ -13,8 +13,16 @@
 
         Task<ICollection<FlavourCombination>> GetAllCombinations();
 
-        Task<ResultStatus> DeleteFlavourCombination(string name);
+        Task<ResultStatus> DeleteFlavourCombination(int id);
 
-        Task<ResultStatus> UpdateFlavourCombination(string name, string newName);
+        Task<ResultStatus> UpdateFlavourCombination(int id, string newName);
+
+        Task<ICollection<FlavourCombination>> GetFlavourCombinationsContaining(int flavourId);
+
+        Task<ICollection<FlavourCombination>> GetTop10Combinations();
+
+        Task<ICollection<FlavourCombination>> GetCombinationsByVotes(bool isDescending);
+
+        Task<FlavourCombination> GetFlavourCombinationById(int id);
     }
 }

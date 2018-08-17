@@ -36,6 +36,7 @@
                     Name = createModel.Name,
                     Description = createModel.Description,
                     DateAdded = DateTime.Now,
+                    Votes = 0,
                     UserId = createModel.UserId,
                     FlavourCombinationReferences = new List<FlavourCombinationReference>()
                 };
@@ -61,17 +62,17 @@
 
         [Authorize]
         [HttpPatch]
-        public async Task<IActionResult> Update(string name, string newName)
+        public async Task<IActionResult> Update(int id, string newName)
         {
-            ResultStatus status = await flavourCombinationsService.UpdateFlavourCombination(name, newName);
+            ResultStatus status = await flavourCombinationsService.UpdateFlavourCombination(id, newName);
             return new JsonResult(status);
         }
 
         [Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Delete(string name)
+        public async Task<IActionResult> Delete(int id)
         {
-            ResultStatus status = await flavourCombinationsService.DeleteFlavourCombination(name);
+            ResultStatus status = await flavourCombinationsService.DeleteFlavourCombination(id);
             return new JsonResult(status);
         }
 
@@ -89,6 +90,33 @@
             FlavourCombination model = await flavourCombinationsService.GetFlavourCombinationByName(Name);
 
             return new JsonResult(model);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetFlavourCombinationContaining(int flavourId)
+        {
+            var flavourCombosContainingFlavour = await flavourCombinationsService.GetFlavourCombinationsContaining(flavourId);
+
+            return new JsonResult(flavourCombosContainingFlavour);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetTop10FlavourCombinations()
+        {
+            var top10 = await flavourCombinationsService.GetTop10Combinations();
+
+            return new JsonResult(top10);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetCombinationsByVotes(bool isDescending = true)
+        {
+            var combosByVotes = await flavourCombinationsService.GetCombinationsByVotes(isDescending);
+
+            return new JsonResult(combosByVotes);
         }
     }
 }

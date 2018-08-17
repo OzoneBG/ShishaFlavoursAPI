@@ -9,11 +9,13 @@
     {
         Task<ResultStatus> CreateFlavour(string name);
 
-        Task<ResultStatus> DeleteFlavourByName(string name);
+        Task<ResultStatus> DeleteFlavourById(int id);
 
-        Task<ResultStatus> UpdateFlavourByName(string name, string newName);
+        Task<ResultStatus> UpdateFlavourById(int id, string newName);
 
         Task<Flavour> GetFlavourByName(string name);
+
+        Task<Flavour> GetFlavourById(int id);
 
         Task<ICollection<Flavour>> GetAllFlavours();
 

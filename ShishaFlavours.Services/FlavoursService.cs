@@ -18,6 +18,15 @@
             this.flavoursRepository = flavoursRepository;
         }
 
+        public async Task<Flavour> GetFlavourById(int id)
+        {
+            Flavour flavour = null;
+
+            flavour = await flavoursRepository.All().Where(f => f.Id == id).FirstOrDefaultAsync();
+
+            return flavour;
+        }
+
         public async Task<Flavour> GetFlavourByName(string name)
         {
             Flavour flavour = null;
@@ -70,9 +79,9 @@
             return resultStatus;
         }
 
-        public async Task<ResultStatus> DeleteFlavourByName(string name)
+        public async Task<ResultStatus> DeleteFlavourById(int id)
         {
-            Flavour target = await GetFlavourByName(name);
+            Flavour target = await GetFlavourById(id);
             flavoursRepository.Delete(target);
             int code = await flavoursRepository.SaveChanges();
 
@@ -95,9 +104,9 @@
             return resultStatus;
         }
 
-        public async Task<ResultStatus> UpdateFlavourByName(string name, string newName)
+        public async Task<ResultStatus> UpdateFlavourById(int id, string newName)
         {
-            Flavour target = await GetFlavourByName(name);
+            Flavour target = await GetFlavourById(id);
             target.Name = newName;
             flavoursRepository.Update(target);
             int code = await flavoursRepository.SaveChanges();

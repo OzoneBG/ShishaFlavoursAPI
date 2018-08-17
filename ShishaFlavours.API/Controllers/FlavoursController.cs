@@ -20,9 +20,9 @@
 
         [Authorize]
         [HttpGet]
-        public async Task<Flavour> GetFlavour(string Name)
+        public async Task<Flavour> GetFlavour(int id)
         {
-            return await flavoursService.GetFlavourByName(Name);
+            return await flavoursService.GetFlavourById(id);
         }
 
         [HttpGet]
@@ -42,18 +42,18 @@
 
         [Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Delete(string Name)
+        public async Task<IActionResult> Delete(int id)
         {
-            ResultStatus status = await flavoursService.DeleteFlavourByName(Name);
+            ResultStatus status = await flavoursService.DeleteFlavourById(id);
 
             return new JsonResult(status);
         }
 
         [Authorize]
         [HttpPatch]
-        public async Task<IActionResult> Update(string Name, string NewName)
+        public async Task<IActionResult> Update(int id, string NewName)
         {
-            ResultStatus status = await flavoursService.UpdateFlavourByName(Name, NewName);
+            ResultStatus status = await flavoursService.UpdateFlavourById(id, NewName);
 
             return new JsonResult(status);
         }

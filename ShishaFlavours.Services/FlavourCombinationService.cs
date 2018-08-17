@@ -55,9 +55,9 @@
             return resultStatus;
         }
 
-        public async Task<ResultStatus> DeleteFlavourCombination(string name)
+        public async Task<ResultStatus> DeleteFlavourCombination(int id)
         {
-            FlavourCombination target = await GetFlavourCombinationByName(name);
+            FlavourCombination target = await GetFlavourCombinationById(id);
             flavourCombinationRepository.Delete(target);
             int code = await flavourCombinationRepository.SaveChanges();
 
@@ -85,14 +85,52 @@
             return await flavourCombinationRepository.All().ToListAsync();
         }
 
+        public async Task<ICollection<FlavourCombination>> GetCombinationsByVotes(bool isDescending)
+        {
+            var all = flavourCombinationRepository.All();
+
+            ICollection<FlavourCombination> filteredData = null;
+
+            if(isDescending)
+            {
+                filteredData = await all.OrderByDescending(fc => fc.Votes).ToListAsync();
+            }
+            else
+            {
+                filteredData = await all.OrderBy(fc => fc.Votes).ToListAsync();
+            }
+
+            return filteredData;
+        }
+
         public async Task<FlavourCombination> GetFlavourCombinationByName(string name)
         {
             return await flavourCombinationRepository.All().Where(x => x.Name == name).FirstOrDefaultAsync();
         }
 
-        public async Task<ResultStatus> UpdateFlavourCombination(string name, string newName)
+        public async Task<ICollection<FlavourCombination>> GetFlavourCombinationsContaining(int flavourId)
         {
-            FlavourCombination target = await GetFlavourCombinationByName(name);
+            var data = await flavourCombinationRepository
+                .All()
+                .Where(fc => fc.FlavourCombinationReferences.Select(f => f.FlavourId).Contains(flavourId))
+                .ToListAsync();
+
+            return data;
+        }
+
+        public async Task<ICollection<FlavourCombination>> GetTop10Combinations()
+        {
+            return await flavourCombinationRepository
+                .All()
+                .OrderByDescending(fc => fc.Votes)
+                .Take(10)
+                .ToListAsync();
+                
+        }
+
+        public async Task<ResultStatus> UpdateFlavourCombination(int id, string newName)
+        {
+            FlavourCombination target = await GetFlavourCombinationById(id);
             target.Name = newName;
             flavourCombinationRepository.Update(target);
             int code = await flavourCombinationRepository.SaveChanges();
@@ -114,6 +152,11 @@
             }
 
             return resultStatus;
+        }
+
+        public async Task<FlavourCombination> GetFlavourCombinationById(int id)
+        {
+            return await flavourCombinationRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }
