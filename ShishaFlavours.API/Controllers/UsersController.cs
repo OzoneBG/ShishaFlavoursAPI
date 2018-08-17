@@ -168,6 +168,27 @@
             return response;
         }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetUser(string name)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                User userInDB = await userManager.FindByNameAsync(name);
+
+                if (userInDB == null)
+                {
+                    return NotFound("Didn't find user");
+                }
+
+                return new JsonResult(userInDB);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
         private string BuildToken(User user)
         {
             var claims = new[]
