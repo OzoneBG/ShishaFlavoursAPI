@@ -1,6 +1,5 @@
 ﻿namespace ShishaFlavours.Services.Interfaces
 {
-    using ShishaFlavours.API.ResultModel;
     using ShishaFlavours.Services.ResponseModels;
     using ShishaFlavoursAPI.Models;
     using System.Collections.Generic;

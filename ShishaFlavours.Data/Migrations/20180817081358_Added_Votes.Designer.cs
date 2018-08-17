@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShishaFlavoursAPI.Data;
 
 namespace ShishaFlavours.Data.Migrations
 {
     [DbContext(typeof(ShishaFlavoursDbContext))]
-    partial class ShishaFlavoursDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180817081358_Added_Votes")]
+    partial class Added_Votes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

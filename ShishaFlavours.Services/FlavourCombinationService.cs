@@ -1,7 +1,6 @@
 ﻿namespace ShishaFlavours.Services
 {
     using Microsoft.EntityFrameworkCore;
-    using ShishaFlavours.API.ResultModel;
     using ShishaFlavours.Models.Relationships;
     using ShishaFlavours.Services.Interfaces;
     using ShishaFlavours.Services.ResponseModels;

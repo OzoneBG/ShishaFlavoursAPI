@@ -18,6 +18,9 @@
         [StringLength(100, MinimumLength = 10, ErrorMessage = "The length of the description must be between 10 and 100")]
         public string Description { get; set; }
 
+        [Required]
+        public int Votes { get; set; }
+
         public List<FlavourCombinationReference> FlavourCombinationReferences { get; set; }
 
         [Required]

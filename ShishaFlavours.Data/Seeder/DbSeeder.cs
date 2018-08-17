@@ -74,6 +74,7 @@
                     Name = "Sweet Mint",
                     Description = "A great combination of the most popular shisha flavours ever!",
                     DateAdded = DateTime.Now,
+                    Votes = 20,
                     UserId = adminUserId,
                     FlavourCombinationReferences = new List<FlavourCombinationReference>()
                 };
