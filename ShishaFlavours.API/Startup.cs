@@ -19,6 +19,7 @@
     using ShishaFlavours.Services.Interfaces;
     using ShishaFlavours.Services;
     using Newtonsoft.Json;
+    using Microsoft.Extensions.Logging;
 
     public class Startup
     {
@@ -85,8 +86,10 @@
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
