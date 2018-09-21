@@ -31,6 +31,11 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
+
             services.AddDbContext<ShishaFlavoursDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
