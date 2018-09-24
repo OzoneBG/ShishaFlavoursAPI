@@ -91,32 +91,5 @@
 
             return new JsonResult(model);
         }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetFlavourCombinationContaining(int flavourId)
-        {
-            var flavourCombosContainingFlavour = await flavourCombinationsService.GetFlavourCombinationsContaining(flavourId);
-
-            return new JsonResult(flavourCombosContainingFlavour);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetTop10FlavourCombinations()
-        {
-            var top10 = await flavourCombinationsService.GetTop10Combinations();
-
-            return new JsonResult(top10);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetCombinationsByVotes(bool isDescending = true)
-        {
-            var combosByVotes = await flavourCombinationsService.GetCombinationsByVotes(isDescending);
-
-            return new JsonResult(combosByVotes);
-        }
     }
 }

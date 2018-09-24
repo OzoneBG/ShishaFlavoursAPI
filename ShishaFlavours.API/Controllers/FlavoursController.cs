@@ -26,7 +26,7 @@
         }
 
         [HttpGet]
-        public async Task<List<Flavour>> GetFlavours()
+        public async Task<List<Flavour>> All()
         {
             return (await flavoursService.GetAllFlavours()).ToList();
         }
