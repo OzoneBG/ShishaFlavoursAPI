@@ -57,5 +57,12 @@
 
             return new JsonResult(status);
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult TestMethod()
+        {
+            return new JsonResult("New changed method");
+        }
     }
 }

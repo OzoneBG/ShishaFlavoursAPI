@@ -37,6 +37,8 @@
                 options.ForwardClientCertificate = false;
             });
 
+            services.AddCors();
+
             services.AddDbContext<ShishaFlavoursDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -97,6 +99,13 @@
             }
 
             app.UseAuthentication();
+
+            app.UseCors(builder => {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
 
             app.UseMvc(routes =>
             {
