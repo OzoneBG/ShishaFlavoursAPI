@@ -156,12 +156,12 @@
 
             if(ModelState.IsValid)
             {
-                var user = await signInManager.Authenticate(login.Username, login.Password);
+                var currentUser = await signInManager.Authenticate(login.Username, login.Password);
 
-                if (user != null)
+                if (currentUser != null)
                 {
-                    var tokenString = BuildToken(user);
-                    response = Ok(new { token = tokenString });
+                    var tokenString = BuildToken(currentUser);
+                    response = Ok(new { user = currentUser, token = tokenString });
                 }
             }
 
