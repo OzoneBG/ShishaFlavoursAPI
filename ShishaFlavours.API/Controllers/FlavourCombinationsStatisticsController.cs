@@ -10,7 +10,7 @@
         private readonly IFlavourCombinationsService flavourCombinationsService = null;
 
         public FlavourCombinationsStatisticsController(IFlavourCombinationsService flavourCombinationsService)
-        {;
+        {
             this.flavourCombinationsService = flavourCombinationsService;
         }
 
@@ -23,7 +23,6 @@
             return new JsonResult(flavourCombosContainingFlavour);
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetTop10FlavourCombinations()
         {
